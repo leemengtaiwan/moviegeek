@@ -3,8 +3,10 @@ import urllib.request
 import django
 import datetime
 import decimal
+import ssl
 from tqdm import tqdm
 
+context = ssl._create_unverified_context()
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'prs_project.settings')
 
 django.setup()
@@ -23,7 +25,7 @@ def create_rating(user_id, content_id, rating, timestamp):
 
 def download_ratings():
     URL = 'https://raw.githubusercontent.com/sidooms/MovieTweetings/master/latest/ratings.dat'
-    response = urllib.request.urlopen(URL)
+    response = urllib.request.urlopen(URL, context=context)
     data = response.read()
 
     print('download finished')

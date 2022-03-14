@@ -142,7 +142,8 @@ There are Anaconda specific instructions for this step, too; be sure to use thos
     Thanks, TechnologyScout.net for these instructions:
     ```bash
     > while read requirement; do conda install --yes $requirement; done < requirements.txt    
-    ```
+    while read requirement; do conda install --yes $requirement || pip install $requirement; done < requirements.txt
+    ``
     
 ## Database setup
 

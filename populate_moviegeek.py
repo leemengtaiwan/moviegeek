@@ -1,7 +1,9 @@
 import os
+import ssl
 import urllib.request
 from tqdm import tqdm
 
+context = ssl._create_unverified_context()
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'prs_project.settings')
 
 import django
@@ -30,8 +32,9 @@ def create_movie(movie_id, title, genres):
     return movie
 
 
+# ref: https://stackoverflow.com/a/28052583/2447655
 def download_movies(URL = 'https://raw.githubusercontent.com/sidooms/MovieTweetings/master/latest/movies.dat'):
-    response = urllib.request.urlopen(URL)
+    response = urllib.request.urlopen(URL, context=context)
     data = response.read()
     return data.decode('utf-8')
 
